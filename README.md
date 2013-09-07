@@ -3,8 +3,7 @@ ofxWinUtils
 
 ![ofxWinColorDialog](ofxaddons_thumbnail.png)
 
-Usefull Windows Utils implementation for openFrameworks  
-v0.0.2
+Usefull Windows Utils implementation for openFrameworks - `v0.0.2`
 
 Installation
 ------------
