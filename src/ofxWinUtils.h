@@ -14,7 +14,7 @@
 #include "ofMain.h"
 
 #ifndef TARGET_WIN32
-	ofLogWarning("ofxWinUtils") << "this addon support only win";
+void ofxWinError();
 #else
 
 #include <winuser.h>

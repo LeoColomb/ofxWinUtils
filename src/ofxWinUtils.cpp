@@ -9,6 +9,10 @@
 
 #include "ofxWinUtils.h"
 
+#ifndef TARGET_WIN32
+void ofxWinError() { ofLogWarning("ofxWinUtils") << "this addon support only win"; };
+#else
+
 //------------------------------------------------------------------------------
 ofColor ofxWinColorDialog() {
 	ofColor colorResult;
@@ -34,3 +38,5 @@ ofColor ofxWinColorDialog() {
 	colorResult.r = rgbCurrent & 0xff;
 	return colorResult;
 }
+
+#endif
