@@ -1,11 +1,11 @@
-/**
- * ofxWinUtils
- * Usefull Windows Utils implementation for openFrameworks
- * https://github.com/LeoColomb/ofxWinUtils
- *
- * Copyright (c) 2013 Leo Colombaro
- * MIT License
- */
+// ********
+// ofxWinUtils
+// Usefull Windows Utils implementation for openFrameworks
+// https://github.com/LeoColomb/ofxWinUtils
+//
+// Copyright (c) 2013 Leo Colombaro
+// MIT License
+// ********
 
 #include "ofxWinUtils.h"
 
