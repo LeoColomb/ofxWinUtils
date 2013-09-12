@@ -22,9 +22,26 @@ void ofxWinError();
 #include "ofBaseTypes.h"
 
 // Dialogs
-// http://msdn.microsoft.com/en-us/library/windows/desktop/ms646829.aspx
 //------------------------------------------------------------------------------
 ofColor ofxWinColorDialog();
+
+// Cursor
+//------------------------------------------------------------------------------
+#define WIN_CURSOR_APPSTARTING IDC_APPSTARTING
+#define WIN_CURSOR_ARROW IDC_ARROW
+#define WIN_CURSOR_CROSS IDC_CROSS
+#define WIN_CURSOR_HAND IDC_HAND
+#define WIN_CURSOR_HELP IDC_HELP
+#define WIN_CURSOR_IBEAM IDC_IBEAM
+#define WIN_CURSOR_NO IDC_NO
+#define WIN_CURSOR_SIZEALL IDC_SIZEALL
+#define WIN_CURSOR_SIZENESW IDC_SIZENESW
+#define WIN_CURSOR_SIZENS IDC_SIZENS
+#define WIN_CURSOR_SIZENWSE IDC_SIZENWSE
+#define WIN_CURSOR_SIZEWE IDC_SIZEWE
+#define WIN_CURSOR_UPARROW IDC_UPARROW
+#define WIN_CURSOR_WAIT IDC_WAIT
+void ofxWinCursor(LPCTSTR name);
 
 #endif
 #endif

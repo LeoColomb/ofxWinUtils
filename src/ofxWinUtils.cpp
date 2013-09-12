@@ -39,4 +39,15 @@ ofColor ofxWinColorDialog() {
 	return colorResult;
 }
 
+//------------------------------------------------------------------------------
+void ofxWinCursor(LPCTSTR cursorName) {
+	HCURSOR hNewCurs;
+	//switch (ofToInt(cursorName)) {
+	//case 'name':
+	hNewCurs = LoadCursor(NULL, cursorName);
+	//	break;
+	//}
+	SetClassLong(GetForegroundWindow(), GCL_HCURSOR, (LONG) hNewCurs);
+}
+
 #endif
