@@ -50,4 +50,51 @@ void ofxWinCursor(LPCTSTR cursorName) {
 	SetClassLong(GetForegroundWindow(), GCL_HCURSOR, (LONG) hNewCurs);
 }
 
+//------------------------------------------------------------------------------
+ofxWinTaskbarProgress::WinTaskbarProgress() {
+    m_pITaskBarList = NULL;
+    m_bFailed = false;
+}
+
+ofxWinTaskbarProgress::~WinTaskbarProgress() {
+    if (m_pITaskBarList) {
+        m_pITaskBarList->Release();
+        CoUninitialize();
+    }
+}
+
+void ofxWinTaskbarProgress::SetProgressState(HWND hwnd, TBPFLAG flag) {
+    if (Init())
+        m_pITaskBarList->SetProgressState(hwnd, flag);
+}
+
+void ofxWinTaskbarProgress::SetProgressValue(HWND hwnd, ULONGLONG ullCompleted, ULONGLONG ullTotal) {
+    if (Init())
+        m_pITaskBarList->SetProgressValue(hwnd, ullCompleted, ullTotal);
+}
+
+bool ofxWinTaskbarProgress::Init() {
+    if (m_pITaskBarList)
+        return true;
+
+    if (m_bFailed)
+        return false;
+
+    // Initialize COM for this thread...
+    CoInitialize(NULL);
+
+    CoCreateInstance(CLSID_TaskbarList,
+                     NULL,
+                     CLSCTX_INPROC_SERVER,
+                     IID_ITaskbarList,
+                     (void **)&m_pITaskBarList);
+
+    if (m_pITaskBarList)
+        return true;
+
+    m_bFailed = true;
+    CoUninitialize();
+    return false;
+}
+
 #endif
