@@ -43,5 +43,22 @@ ofColor ofxWinColorDialog();
 #define WIN_CURSOR_WAIT IDC_WAIT
 void ofxWinCursor(LPCTSTR name);
 
+// Taskbar
+//------------------------------------------------------------------------------
+class ofxWinTaskbarProgress {
+public:
+    WinTaskbarProgress();
+    virtual ~WinTaskbarProgress();
+
+    void SetProgressState(HWND hwnd, TBPFLAG flag);
+    void SetProgressValue(HWND hwnd, ULONGLONG ullCompleted, ULONGLONG ullTotal);
+
+private:
+    bool Init();
+    ITaskbarList* m_pITaskBarList;
+    bool m_bFailed;
+};
+
+
 #endif
 #endif
