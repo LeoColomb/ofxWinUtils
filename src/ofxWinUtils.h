@@ -55,7 +55,7 @@ public:
 
 private:
     bool Init();
-    ITaskbarList* m_pITaskBarList;
+    ITaskbarList3* m_pITaskBarList;
     bool m_bFailed;
 };
 
