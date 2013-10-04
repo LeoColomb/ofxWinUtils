@@ -30,7 +30,7 @@ ofColor ofxWinColorDialog() {
 	cc.Flags = CC_FULLOPEN | CC_RGBINIT;
 	if (ChooseColor(&cc) == TRUE) {
 		hbrush = CreateSolidBrush(cc.rgbResult);
-		rgbCurrent = cc.rgbResult; 
+		rgbCurrent = cc.rgbResult;
 	}
 
 	colorResult.b = (rgbCurrent >> 16) & 0xff;
@@ -42,59 +42,53 @@ ofColor ofxWinColorDialog() {
 //------------------------------------------------------------------------------
 void ofxWinCursor(LPCTSTR cursorName) {
 	HCURSOR hNewCurs;
-	//switch (ofToInt(cursorName)) {
-	//case 'name':
 	hNewCurs = LoadCursor(NULL, cursorName);
-	//	break;
-	//}
 	SetClassLong(GetForegroundWindow(), GCL_HCURSOR, (LONG) hNewCurs);
 }
 
 //------------------------------------------------------------------------------
-ofxWinTaskbarProgress::WinTaskbarProgress() {
-    m_pITaskBarList = NULL;
-    m_bFailed = false;
+ofxWinTaskbarProgress::ofxWinTaskbarProgress() {
+	m_pITaskBarList = NULL;
+	m_bFailed = false;
 }
 
-ofxWinTaskbarProgress::~WinTaskbarProgress() {
-    if (m_pITaskBarList) {
-        m_pITaskBarList->Release();
-        CoUninitialize();
-    }
+ofxWinTaskbarProgress::~ofxWinTaskbarProgress() {
+	if (m_pITaskBarList) {
+		m_pITaskBarList->Release();
+		CoUninitialize();
+	}
 }
 
 void ofxWinTaskbarProgress::SetProgressState(HWND hwnd, TBPFLAG flag) {
-    if (Init())
-        m_pITaskBarList->SetProgressState(hwnd, flag);
+	if (setup())
+		m_pITaskBarList->SetProgressState(hwnd, flag);
 }
 
 void ofxWinTaskbarProgress::SetProgressValue(HWND hwnd, ULONGLONG ullCompleted, ULONGLONG ullTotal) {
-    if (Init())
-        m_pITaskBarList->SetProgressValue(hwnd, ullCompleted, ullTotal);
+	if (setup())
+		m_pITaskBarList->SetProgressValue(hwnd, ullCompleted, ullTotal);
 }
 
-bool ofxWinTaskbarProgress::Init() {
-    if (m_pITaskBarList)
-        return true;
+bool ofxWinTaskbarProgress::setup() {
+	if (m_pITaskBarList)
+		return true;
 
-    if (m_bFailed)
-        return false;
+	if (m_bFailed)
+		return false;
 
-    // Initialize COM for this thread...
-    CoInitialize(NULL);
+	CoInitialize(NULL);
+	CoCreateInstance(CLSID_TaskbarList,
+		NULL,
+		CLSCTX_INPROC_SERVER,
+		IID_ITaskbarList,
+		(void **) &m_pITaskBarList);
 
-    CoCreateInstance(CLSID_TaskbarList,
-                     NULL,
-                     CLSCTX_INPROC_SERVER,
-                     IID_ITaskbarList,
-                     (void **)&m_pITaskBarList);
+	if (m_pITaskBarList)
+		return true;
 
-    if (m_pITaskBarList)
-        return true;
-
-    m_bFailed = true;
-    CoUninitialize();
-    return false;
+	m_bFailed = true;
+	CoUninitialize();
+	return false;
 }
 
 #endif
